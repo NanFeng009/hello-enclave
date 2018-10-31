@@ -47,6 +47,8 @@ int main(int argc, char const *argv[]) {
         return 1;
     }
 
+    test_ecdsa_sign(global_eid);
+
     std::cout << "Seal round trip success! Receive back " << unsealed << std::endl;
 
     return 0;

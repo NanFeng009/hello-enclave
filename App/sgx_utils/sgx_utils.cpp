@@ -31,6 +31,7 @@ int initialize_enclave(sgx_enclave_id_t* eid, const std::string& launch_token_pa
      *         if there is no token, then create a new one.
      */
     /* try to get the token saved in $HOME */
+    printf("enter into initialize_enclave\n");
     FILE* fp = fopen(token_path, "rb");
     if (fp == NULL && (fp = fopen(token_path, "wb")) == NULL) {
         printf("Warning: Failed to create/open the launch token file \"%s\".\n", token_path);
