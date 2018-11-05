@@ -47,6 +47,7 @@ void test_ecdsa_sign()
     sgx_ec256_signature_t p_signature;
     memset((unsigned char *)&p_private, 0, sizeof(sgx_ec256_private_t));
 
+    //p_private all zero will make sgx_ecdsa_sign function failed
     sgx_status = sgx_ecdsa_sign( p_data, strlen((const char*)p_data), &p_private,  &p_signature, sigma_ecc_handle);
     o_printf("sgx_ecdsa_sign = %d\n", sgx_status);
     sgx_status = sgx_ecdsa_sign( p_data, strlen((const char*)p_data), (sgx_ec256_private_t *)Privatekey_b_little_endian,  &p_signature, sigma_ecc_handle);
