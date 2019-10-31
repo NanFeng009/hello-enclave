@@ -23,33 +23,8 @@ int main(int argc, char const *argv[]) {
     if (status != SGX_SUCCESS) {
         std::cout << "noob" << std::endl;
     }
-    printf("Random number: %d\n", ptr);
+    std::cout << "Random number: "<< ptr << std::endl;
 
-    // Seal the random number
-    size_t sealed_size = sizeof(sgx_sealed_data_t) + sizeof(ptr);
-    uint8_t* sealed_data = (uint8_t*)malloc(sealed_size);
-
-    sgx_status_t ecall_status;
-    status = seal(global_eid, &ecall_status,
-            (uint8_t*)&ptr, sizeof(ptr),
-            (sgx_sealed_data_t*)sealed_data, sealed_size);
-
-    if (!is_ecall_successful(status, "Sealing failed :(", ecall_status)) {
-        return 1;
-    }
-
-    int unsealed;
-    status = unseal(global_eid, &ecall_status,
-            (sgx_sealed_data_t*)sealed_data, sealed_size,
-            (uint8_t*)&unsealed, sizeof(unsealed));
-
-    if (!is_ecall_successful(status, "Unsealing failed :(", ecall_status)) {
-        return 1;
-    }
-
-    test_ecdsa_sign(global_eid);
-
-    std::cout << "Seal round trip success! Receive back " << unsealed << std::endl;
 
     return 0;
 }
